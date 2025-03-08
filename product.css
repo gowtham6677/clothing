@@ -1,0 +1,17 @@
+.product-card {
+    transition: transform 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+}
+
+.product-image {
+    aspect-ratio: 3/4;
+    object-fit: cover;
+}
+
+.size-selector input:checked + label {
+    background-color: #2563eb;
+    color: white;
+}
