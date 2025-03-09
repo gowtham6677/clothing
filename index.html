@@ -11,24 +11,35 @@
     <meta name="twitter:title" content="Fashion Store - Your Style Destination">
     <meta name="twitter:description" content="Discover trendy and fashionable clothing at our online store. Shop the latest collections of high-quality apparel.">
     <title>Fashion Store - Your Style Destination</title>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="styles/main.css" rel="stylesheet">
     <link href="styles/product.css" rel="stylesheet">
     <link href="styles/cart.css" rel="stylesheet">
-    <script type="text/javascript">
-        (function() {
-            // Initialize EmailJS with your public key
-            emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
-        })();
-    </script>
 </head>
 <body>
     <div id="root"></div>
+    <script>
+        // Global error handler
+        window.onerror = function(message, source, lineno, colno, error) {
+            console.error('Global error:', { message, source, lineno, colno, error });
+            return false;
+        };
+
+        // Initialize EmailJS
+        (function() {
+            emailjs.init("lQZREgQ9c226z4zau");
+        })();
+
+        // Global function to report errors
+        function reportError(error) {
+            console.error('Application error:', error);
+        }
+    </script>
     <script type="text/babel" src="components/Header.js"></script>
     <script type="text/babel" src="components/ProductCard.js"></script>
     <script type="text/babel" src="components/ProductGrid.js"></script>

@@ -13,8 +13,21 @@ function App() {
         const [currentPage, setCurrentPage] = React.useState('home');
         const [orderPlaced, setOrderPlaced] = React.useState(false);
         const [notification, setNotification] = React.useState(null);
+        const [isLoading, setIsLoading] = React.useState(false);
+
+        React.useEffect(() => {
+            // Initialize the app
+            try {
+                // Any initialization code here
+            } catch (error) {
+                console.error('App initialization error:', error);
+                reportError(error);
+            }
+        }, []);
 
         const handleAddToCart = (product, size) => {
+            if (!product || !size) return;
+            
             try {
                 addToCart(product, size);
                 setNotification({
@@ -52,6 +65,10 @@ function App() {
         };
 
         const sendOrderEmail = async (orderData, cartItems, total) => {
+            if (!orderData || !cartItems || !total) {
+                throw new Error('Missing required order data');
+            }
+
             const orderDetails = cartItems.map(item => 
                 `${item.name} (Size: ${item.size}, Quantity: ${item.quantity})`
             ).join('\n');
@@ -65,12 +82,12 @@ Email: ${orderData.email}
 Phone: ${orderData.phone}
 Address: ${orderData.address}
 City: ${orderData.city}
-ZIP: ${orderData.zipCode}
+PIN: ${orderData.zipCode}
 
 Order Items:
 ${orderDetails}
 
-Total Amount: $${total.toFixed(2)}
+Total Amount: ₹${total.toLocaleString('en-IN')}
             `;
 
             const templateParams = {
@@ -81,23 +98,26 @@ Total Amount: $${total.toFixed(2)}
                 customer_email: orderData.email,
                 customer_phone: orderData.phone,
                 order_details: orderDetails,
-                total_amount: total.toFixed(2)
+                total_amount: total.toLocaleString('en-IN')
             };
 
             try {
                 await emailjs.send(
-                    'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
-                    'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+                    'service_xa5rakf',
+                    'template_agehwj4',
                     templateParams
                 );
                 return true;
             } catch (error) {
                 console.error('Error sending email:', error);
-                return false;
+                throw error;
             }
         };
 
         const handlePlaceOrder = async (orderData) => {
+            if (!orderData) return;
+
+            setIsLoading(true);
             try {
                 const emailSent = await sendOrderEmail(orderData, cart, getTotalPrice());
                 
@@ -128,6 +148,8 @@ Total Amount: $${total.toFixed(2)}
                     message: 'Failed to place order. Please try again.'
                 });
                 setTimeout(() => setNotification(null), 3000);
+            } finally {
+                setIsLoading(false);
             }
         };
 
@@ -146,6 +168,14 @@ Total Amount: $${total.toFixed(2)}
         };
 
         const renderPage = () => {
+            if (isLoading) {
+                return (
+                    <div className="flex items-center justify-center min-h-screen">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+                    </div>
+                );
+            }
+
             switch (currentPage) {
                 case 'cart':
                     return (
@@ -201,7 +231,25 @@ Total Amount: $${total.toFixed(2)}
     }
 }
 
-// Render the app
-const rootElement = document.getElementById('root');
-const root = ReactDOM.createRoot(rootElement);
-root.render(<App />);
+// Wait for DOM to be ready
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        const rootElement = document.getElementById('root');
+        if (!rootElement) {
+            throw new Error('Root element not found');
+        }
+        const root = ReactDOM.createRoot(rootElement);
+        root.render(<App />);
+    } catch (error) {
+        console.error('React initialization error:', error);
+        reportError(error);
+        document.body.innerHTML = `
+            <div class="min-h-screen flex items-center justify-center">
+                <div class="text-center">
+                    <h1 class="text-2xl font-bold text-red-600 mb-4">Failed to load application</h1>
+                    <p class="text-gray-600">Please refresh the page or try again later.</p>
+                </div>
+            </div>
+        `;
+    }
+});
