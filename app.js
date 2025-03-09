@@ -1,4 +1,4 @@
-function App(){
+function App() {
     try {
         const {
             cart,
@@ -73,21 +73,22 @@ ${orderDetails}
 Total Amount: $${total.toFixed(2)}
             `;
 
-            // Using emailjs.com service
             const templateParams = {
                 to_email: 'gujalmama07@gmail.com',
                 from_name: orderData.name,
                 message: emailBody,
-                reply_to: orderData.email
+                reply_to: orderData.email,
+                customer_email: orderData.email,
+                customer_phone: orderData.phone,
+                order_details: orderDetails,
+                total_amount: total.toFixed(2)
             };
 
             try {
-                // Send email using Email.js
                 await emailjs.send(
-                    'service_xa5rakf', // Replace with your Email.js service ID
-                    'template_agehwj4', // Replace with your Email.js template ID
-                    templateParams,
-                    'lQZREgQ9c226z4zau' // Replace with your Email.js user ID
+                    'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
+                    'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+                    templateParams
                 );
                 return true;
             } catch (error) {
@@ -129,7 +130,6 @@ Total Amount: $${total.toFixed(2)}
                 setTimeout(() => setNotification(null), 3000);
             }
         };
-        
 
         const renderNotification = () => {
             if (!notification) return null;
@@ -199,7 +199,6 @@ Total Amount: $${total.toFixed(2)}
             </div>
         );
     }
-
 }
 
 // Render the app

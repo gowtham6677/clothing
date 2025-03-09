@@ -18,7 +18,7 @@ function CartItem({ item, onUpdateQuantity, onRemove }) {
                 <div data-name="item-details" className="ml-4 flex-grow">
                     <h3 data-name="item-name" className="font-semibold">{item.name}</h3>
                     <p data-name="item-size" className="text-gray-600">Size: {item.size}</p>
-                    <p data-name="item-price" className="text-gray-800">${item.price.toFixed(2)}</p>
+                    <p data-name="item-price" className="text-gray-800">₹{item.price.toLocaleString('en-IN')}</p>
                 </div>
                 <div data-name="item-quantity" className="flex items-center space-x-2">
                     <input

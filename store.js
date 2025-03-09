@@ -2,7 +2,7 @@ const initialProducts = [
     {
         id: 1,
         name: "Floral Summer Dress",
-        price: 89.99,
+        price: 2999,
         image: "https://images.unsplash.com/photo-1622122201714-77da0ca8e5d2?w=800",
         sizes: ["XS", "S", "M", "L", "XL"],
         category: "dress"
@@ -10,7 +10,7 @@ const initialProducts = [
     {
         id: 2,
         name: "Evening Gown",
-        price: 199.99,
+        price: 5999,
         image: "https://images.unsplash.com/photo-1571733148001-58c058f0ca1d?w=800",
         sizes: ["S", "M", "L"],
         category: "dress"
@@ -18,7 +18,7 @@ const initialProducts = [
     {
         id: 3,
         name: "Casual Maxi Dress",
-        price: 69.99,
+        price: 1999,
         image: "https://images.unsplash.com/photo-1495385794356-15371f348c31?w=800",
         sizes: ["XS", "S", "M", "L"],
         category: "dress"
@@ -26,7 +26,7 @@ const initialProducts = [
     {
         id: 4,
         name: "Cocktail Dress",
-        price: 149.99,
+        price: 3999,
         image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800",
         sizes: ["S", "M", "L", "XL"],
         category: "dress"

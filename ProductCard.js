@@ -25,7 +25,7 @@ function ProductCard({ product, onAddToCart }) {
                 <div data-name="product-info" className="p-6">
                     <h3 data-name="product-name" className="text-lg font-semibold mb-2">{product.name}</h3>
                     <p data-name="product-price" className="text-xl text-blue-600 font-bold mb-4">
-                        ${product.price.toFixed(2)}
+                        ₹{product.price.toLocaleString('en-IN')}
                     </p>
                     
                     <div data-name="size-selector" className="mb-4">

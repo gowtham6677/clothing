@@ -22,7 +22,7 @@ function Cart({ items, onUpdateQuantity, onRemove, onCheckout, total }) {
                         <div data-name="cart-summary" className="mt-6 border-t pt-4">
                             <div className="flex justify-between items-center mb-4">
                                 <span className="font-semibold">Total:</span>
-                                <span className="text-xl font-bold">${total.toFixed(2)}</span>
+                                <span className="text-xl font-bold">₹{total.toLocaleString('en-IN')}</span>
                             </div>
                             
                             <button
