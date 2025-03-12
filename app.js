@@ -103,8 +103,8 @@ Total Amount: ₹${total.toLocaleString('en-IN')}
 
             try {
                 await emailjs.send(
-                    'service_xa5rakf',
-                    'template_agehwj4',
+                    'YOUR_SERVICE_ID',
+                    'YOUR_TEMPLATE_ID',
                     templateParams
                 );
                 return true;

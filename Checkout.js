@@ -6,7 +6,10 @@ function Checkout({ total, onPlaceOrder }) {
             phone: '',
             address: '',
             city: '',
-            zipCode: ''
+            zipCode: '',
+            cardNumber: '',
+            expiryDate: '',
+            cvv: ''
         });
 
         const [errors, setErrors] = React.useState({});
@@ -33,7 +36,10 @@ function Checkout({ total, onPlaceOrder }) {
             if (!formData.phone.trim()) newErrors.phone = 'Phone number is required';
             if (!formData.address.trim()) newErrors.address = 'Address is required';
             if (!formData.city.trim()) newErrors.city = 'City is required';
-            if (!formData.zipCode.trim()) newErrors.zipCode = 'PIN code is required';
+            if (!formData.zipCode.trim()) newErrors.zipCode = 'ZIP code is required';
+            if (!formData.cardNumber.trim()) newErrors.cardNumber = 'Card number is required';
+            if (!formData.expiryDate.trim()) newErrors.expiryDate = 'Expiry date is required';
+            if (!formData.cvv.trim()) newErrors.cvv = 'CVV is required';
 
             // Validate email format
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -63,7 +69,7 @@ function Checkout({ total, onPlaceOrder }) {
                 <h2 data-name="checkout-title" className="text-2xl font-bold mb-6">Checkout</h2>
                 
                 <form onSubmit={handleSubmit}>
-                    <div data-name="contact-section" className="mb-8">
+                    <div data-name="shipping-section" className="mb-8">
                         <h3 className="text-lg font-semibold mb-4">Contact Information</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
@@ -103,7 +109,7 @@ function Checkout({ total, onPlaceOrder }) {
                         </div>
                     </div>
 
-                    <div data-name="shipping-section" className="mb-8">
+                    <div data-name="address-section" className="mb-8">
                         <h3 className="text-lg font-semibold mb-4">Shipping Information</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="md:col-span-2">
@@ -129,7 +135,7 @@ function Checkout({ total, onPlaceOrder }) {
                                 {errors.city && <p className="text-red-500 text-sm mt-1">{errors.city}</p>}
                             </div>
                             <div>
-                                <label className="block text-gray-700 mb-2">PIN Code</label>
+                                <label className="block text-gray-700 mb-2">ZIP Code</label>
                                 <input
                                     type="text"
                                     name="zipCode"
@@ -142,12 +148,52 @@ function Checkout({ total, onPlaceOrder }) {
                         </div>
                     </div>
 
+                    <div data-name="payment-section" className="mb-8">
+                        <h3 className="text-lg font-semibold mb-4">Payment Information</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="md:col-span-2">
+                                <label className="block text-gray-700 mb-2">Card Number</label>
+                                <input
+                                    type="text"
+                                    name="cardNumber"
+                                    value={formData.cardNumber}
+                                    onChange={handleChange}
+                                    className="w-full border rounded-md p-2"
+                                />
+                                {errors.cardNumber && <p className="text-red-500 text-sm mt-1">{errors.cardNumber}</p>}
+                            </div>
+                            <div>
+                                <label className="block text-gray-700 mb-2">Expiry Date</label>
+                                <input
+                                    type="text"
+                                    name="expiryDate"
+                                    placeholder="MM/YY"
+                                    value={formData.expiryDate}
+                                    onChange={handleChange}
+                                    className="w-full border rounded-md p-2"
+                                />
+                                {errors.expiryDate && <p className="text-red-500 text-sm mt-1">{errors.expiryDate}</p>}
+                            </div>
+                            <div>
+                                <label className="block text-gray-700 mb-2">CVV</label>
+                                <input
+                                    type="text"
+                                    name="cvv"
+                                    value={formData.cvv}
+                                    onChange={handleChange}
+                                    className="w-full border rounded-md p-2"
+                                />
+                                {errors.cvv && <p className="text-red-500 text-sm mt-1">{errors.cvv}</p>}
+                            </div>
+                        </div>
+                    </div>
+
                     <div data-name="order-summary" className="mb-6">
                         <h3 className="text-lg font-semibold mb-4">Order Summary</h3>
                         <div className="bg-gray-50 p-4 rounded-md">
                             <div className="flex justify-between items-center">
-                                <span className="font-semibold">Total Amount (Cash on Delivery):</span>
-                                <span className="text-xl font-bold">₹{total.toLocaleString('en-IN')}</span>
+                                <span className="font-semibold">Total:</span>
+                                <span className="text-xl font-bold">${total.toFixed(2)}</span>
                             </div>
                         </div>
                     </div>

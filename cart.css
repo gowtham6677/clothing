@@ -1,1 +1,12 @@
+.cart-item {
+    transition: background-color 0.2s;
+}
 
+.cart-item:hover {
+    background-color: #f3f4f6;
+}
+
+.quantity-input {
+    width: 60px;
+    text-align: center;
+}
